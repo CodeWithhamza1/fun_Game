@@ -11,6 +11,9 @@
     <h1 style="color: red;">Warning: Running an infinite loop. Monitor your browser's performance.</h1>
 
     <script>
+        async function confirmAlert() { 
+
+            if(confirm("Do you wish to goto the dangerous game ?")){
         // Function to monitor memory usage
         async function monitorMemory() {
             if ('measureUserAgentSpecificMemory' in performance) {
@@ -39,6 +42,14 @@
             console.log(number);
             number++;
         }
+                }
+            else {
+
+                window.close();
+                
+            }
+
+            }
     </script>
 </body>
 
