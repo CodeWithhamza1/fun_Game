@@ -1,18 +1,45 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infinite Loop with Memory Monitor</title>
+</head>
 
 <body>
-<script>
+    <h1 style="color: red;">Warning: Running an infinite loop. Monitor your browser's performance.</h1>
 
-let number = 0;
+    <script>
+        // Function to monitor memory usage
+        async function monitorMemory() {
+            if ('measureUserAgentSpecificMemory' in performance) {
+                try {
+                    const memoryUsage = await performance.measureUserAgentSpecificMemory();
+                    console.log(`Memory Usage: ${memoryUsage.bytes} bytes`);
+                    
+                    // Check if memory exceeds a threshold (example: 100MB)
+                    if (memoryUsage.bytes > 100 * 1024 * 1024) {
+                        alert("Warning: This phone is going to crash!");
+                    }
+                } catch (error) {
+                    console.error('Memory measurement failed:', error);
+                }
+            } else {
+                console.log("Memory API not supported on this browser.");
+            }
+        }
 
-while (true) {
-    console.log(number);
-    number++;
-}
+        // Periodically monitor memory usage every 2 seconds
+        setInterval(monitorMemory, 2000);
 
-
-</script>
+        // Infinite loop causing high CPU usage
+        let number = 0;
+        while (true) {
+            console.log(number);
+            number++;
+        }
+    </script>
 </body>
 
 </html>
